@@ -11,12 +11,22 @@ const app = new App({
   port: process.env.PORT || 3000,
 })
 
-app.message("!caniuse", async ({ message, context, say }) => {
+app.message("!caniuse", async ({ message, say }) => {
   const { text } = message
 
   const params = text.replace("!caniuse ", "")
 
   await say(`https://caniuse.com/?search=${encodeURIComponent(params)}`)
+})
+
+app.message("!justwatch", async ({ message, say }) => {
+  const { text } = message
+
+  const params = text.replace("!justwatch ", "")
+
+  await say(
+    `https://www.justwatch.com/fr/recherche?q=${encodeURIComponent(params)}`,
+  )
 })
 ;(async () => {
   // Start your app
