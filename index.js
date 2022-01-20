@@ -28,9 +28,8 @@ app.message("!justwatch", async ({ message, say }) => {
     `https://www.justwatch.com/fr/recherche?q=${encodeURIComponent(params)}`,
   )
 })
-;(async () => {
-  // Start your app
-  await app.start()
 
-  console.log("⚡️ Bolt app is running!")
-})()
+// Start your app
+await app.start()
+
+console.log("⚡️ Bolt app is running!")
