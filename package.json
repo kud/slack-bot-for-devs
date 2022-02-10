@@ -13,6 +13,10 @@
   "license": "ISC",
   "dependencies": {
     "@slack/bolt": "3.8.1",
-    "dotenv": "14.2.0"
+    "caniuse-api": "3.0.0",
+    "caniuse-db": "1.0.30001311",
+    "change-case": "4.1.2",
+    "dotenv": "14.2.0",
+    "markdown-table": "3.0.2"
   }
 }

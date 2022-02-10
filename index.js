@@ -1,6 +1,9 @@
 import bolt from "@slack/bolt"
 const App = bolt.App
 import "dotenv/config"
+import caniuse from "caniuse-api"
+import { markdownTable } from "markdown-table"
+import { paramCase } from "change-case"
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
@@ -11,12 +14,32 @@ const app = new App({
   port: process.env.PORT || 3000,
 })
 
+const supportToMarkdownTable = (support) => {
+  if (!support) {
+    return ""
+  }
+
+  return markdownTable([
+    ["Browser", "Version"],
+    ...Object.entries(support).map(([browser, table]) => [
+      browser,
+      String(table.y),
+    ]),
+  ])
+}
+
 app.message("!caniuse", async ({ message, say }) => {
   const { text } = message
 
   const params = text.replace("!caniuse ", "")
 
-  await say(`https://caniuse.com/?search=${encodeURIComponent(params)}`)
+  await say(
+    `\`\`\`${supportToMarkdownTable(
+      caniuse.getSupport(paramCase(params)),
+    )}\`\`\``,
+  )
+
+  await say(`⇒ https://caniuse.com/?search=${encodeURIComponent(params)}`)
 })
 
 app.message("!justwatch", async ({ message, say }) => {
