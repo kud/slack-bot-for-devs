@@ -33,11 +33,15 @@ app.message("!caniuse", async ({ message, say }) => {
 
   const params = text.replace("!caniuse ", "")
 
-  await say(
-    `\`\`\`${supportToMarkdownTable(
-      caniuse.getSupport(paramCase(params)),
-    )}\`\`\``,
-  )
+  try {
+    await say(
+      `\`\`\`${supportToMarkdownTable(
+        caniuse.getSupport(paramCase(params)),
+      )}\`\`\``,
+    )
+  } catch {
+    await say("Not found.")
+  }
 
   await say(`⇒ https://caniuse.com/?search=${encodeURIComponent(params)}`)
 })
